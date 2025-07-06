@@ -1,0 +1,78 @@
+<mat-icon class="homeIcon" (click)="navigateToHome()">home </mat-icon>
+<mat-icon svgIcon="arrow-left" class="arrow-left" (click)="navigateToAdmin()"
+  >arrow-left
+</mat-icon>
+
+<h1>Création d'une nouvelle description de stage</h1>
+<form [formGroup]="stageForm" (ngSubmit)="onSubmit()">
+  <div class="createstagedesc">
+    <fdc-label class="label-form" id="idTitre"> Titre: </fdc-label>
+    <mat-form-field class="input-form-field">
+      <input
+        matInput
+        aria-labelledby="labelIdDefault"
+        placeholder="Titre du stage"
+        formControlName="titre"
+      />
+    </mat-form-field>
+  </div>
+
+  <div class="createstagedesc">
+    <fdc-label class="label-form" id="idDesc"> Description: </fdc-label>
+    <mat-form-field class="input-form-field">
+      <input
+        matInput
+        aria-labelledby="labelIdDefault"
+        placeholder="Description"
+        formControlName="description"
+      />
+    </mat-form-field>
+  </div>
+
+  <div class="createstagedesc">
+    <fdc-label class="label-form" id="idTheme"> Thème du stage: </fdc-label>
+    <mat-form-field class="input-form-field">
+      <input
+        matInput
+        aria-labelledby="labelIdDefault"
+        placeholder="Thème"
+        formControlName="theme"
+      />
+    </mat-form-field>
+  </div>
+
+  <div class="createstagedesc">
+    <fdc-label class="label-form" id="idAgeMin"> Age minimum: </fdc-label>
+    <mat-form-field class="input-form-field">
+      <input
+        matInput
+        aria-labelledby="labelIdDefault"
+        placeholder="Age minimum"
+        formControlName="ageMin"
+      />
+    </mat-form-field>
+  </div>
+
+  <div class="createstagedesc">
+    <fdc-label class="label-form" id="idAgeMax"> Age maxmum: </fdc-label>
+    <mat-form-field class="input-form-field">
+      <input
+        matInput
+        aria-labelledby="labelIdDefault"
+        placeholder="Age maximum"
+        formControlName="ageMax"
+      />
+    </mat-form-field>
+  </div>
+  <div class="button-container">
+    <button
+      mat-flat-button
+      class="button"
+      color="tertiary"
+      type="submit"
+      [disabled]="stageForm.invalid"
+    >
+      Créer Stage
+    </button>
+  </div>
+</form>

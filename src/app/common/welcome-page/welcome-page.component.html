@@ -1,0 +1,92 @@
+<div class="search-container" [formGroup]="stageForm">
+  <!-- Filtre par période -->
+  <mat-form-field appearance="outline">
+    <mat-label>Périodes</mat-label>
+    <mat-select placeholder="Choisissez une période" formControlName="period">
+      <mat-option value="">Toutes les périodes</mat-option>
+      <mat-option *ngFor="let period of periods()" [value]="period">
+        {{ period }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Catégorie d'ages</mat-label>
+    <mat-select
+      placeholder="Choisissez une catégorie d'age"
+      formControlName="ageRange"
+    >
+      <mat-option value="">Toutes les catégories d'ages</mat-option>
+      <mat-option *ngFor="let range of ageRanges()" [value]="range">
+        {{ range }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Filtre par thème -->
+  <mat-form-field appearance="outline">
+    <mat-label>Filtrer par thème</mat-label>
+    <mat-select placeholder="Choisissez un thème" formControlName="theme">
+      <mat-option value="">Tous les thèmes</mat-option>
+      <mat-option *ngFor="let theme of themes()" [value]="theme">
+        {{ theme }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div *ngIf="filteredStages().length === 0" class="no-stages-message">
+  <p>Pas de stage trouvé pour les critères sélectionnés.</p>
+</div>
+
+<div class="card-container">
+  <article
+    *ngFor="let stage of filteredStages(); trackBy: trackById"
+    class="stage-card"
+  >
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ stage.titre }}</mat-card-title>
+      </mat-card-header>
+      <div class="image">
+        <img mat-card-image [src]="stage.imagePath" alt="{{ stage.titre }}" />
+      </div>
+
+      <div class="stage-card-info">
+        <div>
+          <div>
+            <mat-icon [svgIcon]="'person-big'" [color]="'primary'"></mat-icon>
+          </div>
+          <span>{{ stage.ageMin }} - {{ stage.ageMax }} ans</span>
+        </div>
+        <div>
+          <div>
+            <mat-icon [svgIcon]="'calendar'" [color]="'primary'"></mat-icon>
+          </div>
+          <span
+            >Du {{ stage.dateDebut | date : "dd/MM/YYYY" }} au
+            {{ stage.endDate | date : "dd/MM/YYYY" }}</span
+          >
+        </div>
+        <div>
+          <div>
+            <mat-icon [svgIcon]="'euro-coin'" [color]="'primary'"></mat-icon>
+          </div>
+          <span>{{ stage.prix }} EUR</span>
+        </div>
+      </div>
+      <div class="button-moreInfo">
+        <button
+          mat-flat-button
+          class="small"
+          color="neutral-variant"
+          disabled="false"
+          (click)="navigateToStageDetail(stage.idStageInst)"
+        >
+          <mat-icon svgIcon="eye-open"></mat-icon>
+          Plus d'infos
+        </button>
+      </div>
+    </mat-card>
+  </article>
+</div>

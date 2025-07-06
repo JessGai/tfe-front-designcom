@@ -1,0 +1,32 @@
+.createstagedesc {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em; /* Ajoute un espace entre les lignes */
+}
+
+.label-form {
+  width: 160px; /* Taille uniforme pour aligner les étiquettes */
+  text-align: left;
+  margin-right: 1em; /* Espace entre étiquette et champ */
+}
+
+.input-form-field {
+  flex: 1; /* Les champs prennent toute la largeur disponible */
+}
+
+.button-container {
+  display: flex; /* Active le flexbox pour le conteneur du bouton */
+  justify-content: flex-end; /* Place le bouton à droite */
+  margin-top: 1em; /* Espace au-dessus du bouton */
+  margin-bottom: 1em;
+}
+
+.button {
+  width: auto;
+}
+.homeIcon {
+  cursor: pointer;
+}
+.arrow-left {
+  cursor: pointer;
+}

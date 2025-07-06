@@ -1,0 +1,90 @@
+.body {
+  margin: 0 5cm;
+}
+
+:host {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  ::ng-deep router-outlet {
+    flex: 0;
+
+    & + * {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow-y: hidden;
+    }
+  }
+}
+//header
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.header-info {
+  display: flex;
+  align-items: center; /* Centrer verticalement les éléments logo et contacts */
+  gap: 0px;
+}
+
+.header-logo img {
+  max-height: 80px;
+  margin-left: 24px;
+  margin-right: 24px;
+}
+.header-contacts {
+  display: flex;
+  flex-direction: column; /* Organise les textes en colonne */
+  gap: 8px; /* Espacement entre les lignes */
+  margin-left: 0px;
+}
+.header-buttons {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  background-color: #fff;
+  border: 1px solid #e8cff1;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 8px 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+a {
+  height: fit-content;
+}
+.footer-logo {
+  max-height: 56px;
+}
+.footer-logo img {
+  max-height: 56px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.footer-links {
+  font-size: 1rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  align-items: center;
+}
+p {
+  margin-bottom: 0px;
+  margin-top: 0;
+}
+.footer-social {
+  display: flex;
+  gap: 8px;
+  max-height: 24px;
+}

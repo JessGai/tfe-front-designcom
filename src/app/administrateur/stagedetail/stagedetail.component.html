@@ -1,0 +1,85 @@
+<p>stagedetail works!</p>
+<div class="card-container" *ngIf="stage() && !loading()">
+  <article class="stage-card">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ stage()?.titre }}</mat-card-title>
+      </mat-card-header>
+      <div class="image">
+        <img mat-card-image [src]="themeImage()" alt="{{ stage()?.titre }}" />
+      </div>
+
+      <div class="stage-card-info">
+        <div>
+          <div>
+            <mat-icon [svgIcon]="'person-big'" [color]="'primary'"></mat-icon>
+          </div>
+          <span>{{ stage()?.ageMin }} - {{ stage()?.ageMax }} ans</span>
+        </div>
+        <div>
+          <div>
+            <mat-icon [svgIcon]="'calendar'" [color]="'primary'"></mat-icon>
+          </div>
+          <span
+            >Du {{ stage()?.dateDebut | date : "dd/MM/YYYY" }} au
+            {{
+              calculateEndDate(stage()?.dateDebut) | date : "dd/MM/YYYY"
+            }}</span
+          >
+        </div>
+        <div>
+          <div>
+            <mat-icon [svgIcon]="'euro-coin'" [color]="'primary'"></mat-icon>
+          </div>
+          <span>{{ stage()?.prix }} EUR</span>
+        </div>
+      </div>
+    </mat-card>
+  </article>
+</div>
+
+<mat-expansion-panel class="expansion">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <mat-icon svgIcon="clock"></mat-icon>
+      horaire
+    </mat-panel-title>
+    <mat-panel-description></mat-panel-description>
+  </mat-expansion-panel-header>
+  <div>
+    <p>Les stages se déroulent de 9h à 16h.</p>
+    <p></p>
+    Horaire d'une journée type :
+    <p>• 9h00 à 12h00 - Activité(s)</p>
+    <p>• 12h00 à 13h00 - Repas et temps libre surveillé</p>
+    <p>• 13h00 à 16h00 - Activité(s)</p>
+    <p>
+      Les enfants doivent emporter leur pique-nique et une gourde ou bouteille
+      d’eau. Il est vivement conseillé que les jeunes se munissent d’une
+      collation saine pour les pauses du matin et de l’après-midi.
+    </p>
+  </div>
+</mat-expansion-panel>
+
+<mat-expansion-panel class="expansion">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <mat-icon svgIcon="localisation"></mat-icon>
+      Lieu
+    </mat-panel-title>
+    <mat-panel-description></mat-panel-description>
+  </mat-expansion-panel-header>
+  <div>
+    <div>
+      <mat-icon [svgIcon]="'localisation'" [color]="'primary'" /> rue de
+      l'Amusement, 5000 Namur
+    </div>
+    <div>
+      <mat-icon [svgIcon]="'earphone'" [color]="'primary'" />+32 81 12 34 56
+    </div>
+    <div>
+      <mat-icon [svgIcon]="'envelope'" [color]="'primary'" />
+      {{ email }}
+    </div>
+  </div>
+</mat-expansion-panel>

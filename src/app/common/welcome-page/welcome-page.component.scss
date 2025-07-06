@@ -1,0 +1,63 @@
+.stage-card {
+  background-color: #fff;
+  border: 1px solid #8ecef9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stage-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+.stage-card-info {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  padding: 0.5rem 0;
+
+  div {
+    flex: 1;
+  }
+}
+.card-container {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 0 15%;
+}
+
+.stage-card {
+  max-width: 100%;
+}
+
+img {
+  display: block;
+  margin: auto;
+  max-width: 50%;
+  margin-top: 10px;
+}
+
+.button-moreInfo {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 8px;
+}
+.no-stages-message {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #757575;
+  margin: 2rem 0;
+}
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+  margin-top: 16px;
+}

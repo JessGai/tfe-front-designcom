@@ -1,0 +1,40 @@
+.createstagedesc {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.label-form {
+  flex: 1;
+  margin-right: 1rem;
+  font-weight: bold;
+}
+
+.input-form-field {
+  flex: 2;
+  max-width: 50%;
+}
+form {
+  max-width: 880px;
+  margin: 0 auto;
+}
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  padding: 0 1rem;
+}
+.button-container .button:nth-child(2) {
+  margin-left: auto;
+  max-width: 50%;
+}
+.button {
+  width: auto;
+}
+.homeIcon {
+  cursor: pointer;
+}
+.arrow-left {
+  cursor: pointer;
+}

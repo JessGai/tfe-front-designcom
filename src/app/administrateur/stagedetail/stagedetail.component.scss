@@ -1,0 +1,36 @@
+.stage-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+.stage-card-info {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  padding: 0.5rem 0;
+
+  div {
+    flex: 1;
+  }
+}
+.card-container {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+  margin-left: 300px;
+  margin-right: 300px;
+}
+
+.stage-card {
+  max-width: 100%;
+}
+
+img {
+  display: block;
+  margin: auto;
+  max-width: 50%;
+  margin-top: 10px;
+}
+.expansion {
+  margin: 16px;
+}

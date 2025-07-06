@@ -1,0 +1,131 @@
+<mat-icon class="homeIcon" (click)="navigateToHome()">home </mat-icon>
+
+<h1>Données de la description de stage</h1>
+<div>
+  <p><strong>Titre : </strong>{{ stageDescription.titre }}</p>
+  <p><strong>Thème : </strong>{{ stageDescription.theme }}</p>
+  <p><strong>Description : </strong>{{ stageDescription.description }}</p>
+  <p>
+    <strong>Catégorie d'âges : </strong>{{ stageDescription.ageMin }} -
+    {{ stageDescription.ageMax }} ans
+  </p>
+</div>
+
+<h1>Création d'une nouvelle instance de stage</h1>
+<form [formGroup]="stageInstanceForm" (ngSubmit)="onSubmit()">
+  <div class="createstagedesc">
+    <fdc-label class="label-form" id="idPrix"> Prix: </fdc-label>
+    <mat-form-field class="input-form-field">
+      <input
+        matInput
+        aria-labelledby="labelIdDefault"
+        placeholder="Prix du stage"
+        formControlName="prix"
+      />
+      <div matSuffix>€</div>
+      <mat-error *ngIf="stageInstanceForm.get('prix')?.hasError('required')">
+        Le prix est obligatoire.
+      </mat-error>
+      <mat-error *ngIf="stageInstanceForm.get('prix')?.hasError('pattern')">
+        Le prix doit être un nombre valide.
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="createstagedesc">
+    <fdc-label class="label-form" id="idDate"> Date de début: </fdc-label>
+    <mat-form-field class="input-form-field">
+      <input
+        matInput
+        aria-labelledby="labelIdDefault"
+        formControlName="dateDebut"
+      />
+      <mat-error>
+        {{ errorMessageDate }}
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="createstagedesc">
+    <fdc-label class="label-form" id="idParticipant">
+      Nombre de participants:
+    </fdc-label>
+    <mat-form-field class="input-form-field">
+      <input
+        matInput
+        aria-labelledby="labelIdDefault"
+        placeholder="Participants"
+        formControlName="nbrParticipant"
+      />
+      <mat-error
+        *ngIf="stageInstanceForm.get('nbrParticipant')?.hasError('required')"
+      >
+        Le nombre de participants est obligatoire.
+      </mat-error>
+      <mat-error
+        *ngIf="stageInstanceForm.get('nbrParticipant')?.hasError('pattern')"
+      >
+        Ce champ doit contenir un nombre valide.
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="createstagedesc">
+    <fdc-label class="label-form" id="idInscirption"> Inscription: </fdc-label>
+    <mat-form-field class="input-form-field">
+      <input
+        matInput
+        aria-labelledby="labelIdDefault"
+        formControlName="nbrInscrit"
+      />
+    </mat-form-field>
+  </div>
+
+  <div class="createstagedesc">
+    <fdc-label class="label-form" id="idstatut"> Statut: </fdc-label>
+
+    <mat-button-toggle-group
+      name="fontStyle"
+      aria-label="Font Style"
+      formControlName="statut"
+    >
+      @for (button of buttons; track button.value) {
+      <mat-button-toggle [class]="button.color" [value]="button.value">
+        {{ button.label }}
+      </mat-button-toggle>
+      }
+    </mat-button-toggle-group>
+  </div>
+  <div class="createstagedesc">
+    <fdc-label class="label-form" id="idStageDescription">
+      Identifiant de la description:
+    </fdc-label>
+    <mat-form-field class="input-form-field">
+      <input
+        matInput
+        aria-labelledby="labelIdDefault"
+        formControlName="idStageDesc"
+      />
+    </mat-form-field>
+  </div>
+
+  <div class="button-container">
+    <button
+      mat-flat-button
+      class="button"
+      color="neutral"
+      [routerLink]="'/administrateur'"
+    >
+      Annuler
+    </button>
+    <button
+      mat-flat-button
+      class="button"
+      color="tertiary"
+      type="submit"
+      [disabled]="stageInstanceForm.invalid"
+    >
+      Créer Stage
+    </button>
+  </div>
+</form>

@@ -1,0 +1,30 @@
+.homeIcon {
+  cursor: pointer;
+}
+.search-container {
+  display: flex;
+  justify-content: center; /* Centre horizontalement */
+  align-items: center; /* Aligne verticalement */
+  padding: 10px;
+}
+.searchPeriod {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.instances-header {
+  display: flex; /* Disposition en ligne pour aligner les enfants */
+  align-items: center; /* Centrer verticalement les enfants */
+  gap: 16px; /* Espacement horizontal entre le texte et l'icône */
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.instances-title {
+  margin: 0; /* Supprime les marges par défaut du <h3> */
+}
+
+.moreIcon {
+  cursor: pointer; /* Ajoute un curseur 'pointer' à l'icône */
+}
