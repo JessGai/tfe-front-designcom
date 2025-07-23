@@ -5,3 +5,34 @@
   <li>{{ user.email }}</li>
 </ul>
 `
+<div *ngIf="parent; else loading">
+  <h2>Parent :</h2>
+  <p><strong>ID :</strong> {{ parent.idParent }}</p>
+  <p><strong>Email :</strong> {{ parent.email }}</p>
+  <p><strong>Nom :</strong> {{ parent.nomParent }}</p>
+  <p><strong>Prénom :</strong> {{ parent.prenomParent }}</p>
+  <p>
+    <strong>Adresse :</strong> {{ parent.adresse }}, {{ parent.codePostal }}
+    {{ parent.commune }}
+  </p>
+  <p><strong>Téléphone 1 :</strong> {{ parent.telephone1 }}</p>
+  <p><strong>Téléphone 2 :</strong> {{ parent.telephone2 }}</p>
+  <p><strong>Auth0 User ID :</strong> {{ parent.auth0UserId }}</p>
+
+  <h3>Enfants :</h3>
+  <ul>
+    <li *ngFor="let enfant of parent.enfants">
+      <p><strong>ID :</strong> {{ enfant.idEnfant }}</p>
+      <p><strong>Nom :</strong> {{ enfant.nomEnfant }}</p>
+      <p><strong>Prénom :</strong> {{ enfant.prenomEnfant }}</p>
+      <p><strong>Date de naissance :</strong> {{ enfant.dateNaissance }}</p>
+      <p><strong>Genre :</strong> {{ enfant.genre }}</p>
+      <p><strong>Langue maternelle :</strong> {{ enfant.langueMaternelle }}</p>
+      <hr />
+    </li>
+  </ul>
+</div>
+
+<ng-template #loading>
+  <p>Chargement des données...</p>
+</ng-template>

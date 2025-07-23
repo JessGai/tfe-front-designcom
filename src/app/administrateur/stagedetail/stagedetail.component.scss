@@ -19,6 +19,7 @@
   grid-template-columns: repeat(2, 1fr);
   margin-left: 300px;
   margin-right: 300px;
+  margin-top: 64px;
 }
 
 .stage-card {
@@ -33,4 +34,15 @@ img {
 }
 .expansion {
   margin: 16px;
+}
+.icon-description {
+  margin-right: 16px;
+  vertical-align: middle;
+}
+.txt-description {
+  margin-left: 32px;
+  margin-right: 32px;
+}
+.button-inscription {
+  margin: auto;
 }

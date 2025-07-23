@@ -1,5 +1,6 @@
 import { DatePipe, NgIf } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,7 +11,14 @@ import { StageService } from '../../services/stage.service';
 
 @Component({
   selector: 'app-stagedetail',
-  imports: [MatIconModule, DatePipe, MatCardModule, NgIf, MatExpansionModule],
+  imports: [
+    MatIconModule,
+    DatePipe,
+    MatCardModule,
+    NgIf,
+    MatExpansionModule,
+    MatButtonModule,
+  ],
   templateUrl: './stagedetail.component.html',
   styleUrl: './stagedetail.component.scss',
 })

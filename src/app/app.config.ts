@@ -1,9 +1,9 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideAuth0 } from '@auth0/auth0-angular';
+import { authHttpInterceptorFn, provideAuth0 } from '@auth0/auth0-angular';
 import { provideFinanceComponents } from '@be-fgov-minfin/designcom-components';
 import { default as packageInfo } from '../../package.json';
 import { routes } from './app.routes';
@@ -24,7 +24,21 @@ export const appConfig: ApplicationConfig = {
       },
       cacheLocation: 'localstorage',
       useRefreshTokens: true,
+
+      httpInterceptor: {
+        allowedList: [
+          {
+            uri: 'http://localhost:8081/api/parent/me',
+
+            tokenOptions: {
+              authorizationParams: {
+                audience: 'https://api.kidscamp.com',
+              },
+            },
+          },
+        ],
+      },
     }),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authHttpInterceptorFn])),
   ],
 };

@@ -1,39 +1,58 @@
-<p>stagedetail works!</p>
 <div class="card-container" *ngIf="stage() && !loading()">
   <article class="stage-card">
     <mat-card>
       <mat-card-header>
         <mat-card-title>{{ stage()?.titre }}</mat-card-title>
       </mat-card-header>
-      <div class="image">
+      <mat-card-content>
         <img mat-card-image [src]="themeImage()" alt="{{ stage()?.titre }}" />
-      </div>
+        <div class="stage-card-info">
+          <div>
+            <div>
+              <mat-icon [svgIcon]="'person-big'" [color]="'primary'"></mat-icon>
+            </div>
+            <span>{{ stage()?.ageMin }} - {{ stage()?.ageMax }} ans</span>
+          </div>
+          <div>
+            <div>
+              <mat-icon [svgIcon]="'calendar'" [color]="'primary'"></mat-icon>
+            </div>
+            <span
+              >Du {{ stage()?.dateDebut | date : "dd/MM/YYYY" }} au
+              {{
+                calculateEndDate(stage()?.dateDebut) | date : "dd/MM/YYYY"
+              }}</span
+            >
+          </div>
+          <div>
+            <div>
+              <mat-icon [svgIcon]="'euro-coin'" [color]="'primary'"></mat-icon>
+            </div>
+            <span>{{ stage()?.prix }} EUR</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </article>
 
-      <div class="stage-card-info">
-        <div>
-          <div>
-            <mat-icon [svgIcon]="'person-big'" [color]="'primary'"></mat-icon>
-          </div>
-          <span>{{ stage()?.ageMin }} - {{ stage()?.ageMax }} ans</span>
-        </div>
-        <div>
-          <div>
-            <mat-icon [svgIcon]="'calendar'" [color]="'primary'"></mat-icon>
-          </div>
-          <span
-            >Du {{ stage()?.dateDebut | date : "dd/MM/YYYY" }} au
-            {{
-              calculateEndDate(stage()?.dateDebut) | date : "dd/MM/YYYY"
-            }}</span
-          >
-        </div>
-        <div>
-          <div>
-            <mat-icon [svgIcon]="'euro-coin'" [color]="'primary'"></mat-icon>
-          </div>
-          <span>{{ stage()?.prix }} EUR</span>
-        </div>
-      </div>
+  <article class="stage-card">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title> 📘 Description </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        {{ stage()?.description }}
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+          class="button-inscription"
+          mat-stroked-button
+          color="neutral-variant"
+        >
+          <mat-icon svgIcon="edit"></mat-icon>
+          Inscription
+        </button>
+      </mat-card-actions>
     </mat-card>
   </article>
 </div>

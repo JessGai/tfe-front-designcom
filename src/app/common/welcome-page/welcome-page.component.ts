@@ -8,6 +8,8 @@ import { MatFormField } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '@auth0/auth0-angular';
+import { FdcWelcomeBannerModule } from '@be-fgov-minfin/designcom-components';
 import { StageForCards } from '../../models/stage_desc_model';
 import { StageService } from '../../services/stage.service';
 
@@ -24,6 +26,7 @@ import { StageService } from '../../services/stage.service';
     MatFormField,
     MatSelectModule,
     RouterModule,
+    FdcWelcomeBannerModule,
   ],
   templateUrl: './welcome-page.component.html',
   styleUrls: ['./welcome-page.component.scss'],
@@ -31,6 +34,7 @@ import { StageService } from '../../services/stage.service';
 export class WelcomePageComponent {
   private readonly router = inject(Router);
   private readonly stageService = inject(StageService);
+  auth = inject(AuthService);
 
   // Liste des stages
   protected readonly stages = toSignal(

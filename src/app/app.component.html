@@ -48,7 +48,12 @@
       }
     </mat-menu>
 
-    <button mat-flat-button color="primary" [routerLink]="['/administrateur']">
+    <button
+      *ngIf="isAdmin"
+      mat-flat-button
+      color="primary"
+      [routerLink]="['/administrateur']"
+    >
       <mat-icon svgIcon="aura"></mat-icon>
       Administrateur
     </button>
@@ -70,8 +75,13 @@
   </div>
 </header>
 <div *ngIf="auth.user$ | async as user" class="user-info">
-  👤 Bienvenue <strong>{{ user.nickname }}</strong>
+  <fdc-welcome-banner
+    class="user-info"
+    [userName]="user.nickname"
+    [helpNumber]="'+32 81 12 34 56'"
+  ></fdc-welcome-banner>
 </div>
+
 <div class="content">
   <router-outlet></router-outlet>
 </div>
@@ -93,10 +103,10 @@
       <mat-icon>facebook </mat-icon>
     </a>
     <a href="https://www.instagram.com" target="_blank">
-      <mat-icon [svgIcon]="'edit'" />
+      <mat-icon [svgIcon]="'instagram'" />
     </a>
     <a href="https://www.youtube.com" target="_blank">
-      <mat-icon [svgIcon]="'arrow-right-flat'" />
+      <mat-icon [svgIcon]="'youtube'" />
     </a>
   </div>
 </footer>

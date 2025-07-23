@@ -126,7 +126,7 @@
         <div
           class="example-element-detail"
           [@detailExpand]="
-            element.element == expandedElement() ? 'expanded' : 'collapsed'
+            element.element === expandedElement() ? 'expanded' : 'collapsed'
           "
         >
           <!-- Titre des instances -->
