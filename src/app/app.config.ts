@@ -18,9 +18,9 @@ export const appConfig: ApplicationConfig = {
       domain: 'dev-ox066ujh.us.auth0.com',
       clientId: 'jZ5jpZu1dHNCghztbrzjcON016PLUKId',
       authorizationParams: {
-        redirect_uri: window.location.origin,
+        redirect_uri: 'http://localhost:4200/parentinscription',
         audience: 'https://api.kidscamp.com',
-        scope: 'openid profile email offline_access',
+        scope: 'openid profile email',
       },
       cacheLocation: 'localstorage',
       useRefreshTokens: true,

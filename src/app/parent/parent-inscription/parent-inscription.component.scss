@@ -1,0 +1,32 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 1000px;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  fdc-label {
+    width: 240px; // tu ajustes selon la longueur des textes
+    flex-shrink: 0;
+  }
+
+  mat-form-field {
+    flex: 1;
+  }
+}
+
+.form-row:last-child {
+  justify-content: flex-start;
+}
+
+.form-row:last-child button {
+  margin-left: auto; /* pousse le bouton le plus à droite possible dans la ligne */
+}

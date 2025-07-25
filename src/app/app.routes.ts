@@ -6,8 +6,10 @@ import { CreatestageinstComponent } from './administrateur/createstageinst/creat
 import { EditstageinstComponent } from './administrateur/editstageinst/editstageinst.component';
 import { StagedetailComponent } from './administrateur/stagedetail/stagedetail.component';
 import { WelcomePageComponent } from './common/welcome-page/welcome-page.component';
+import { redirectionGuard } from './guards/redirection.guard';
 import { HistoriqueComponent } from './parent/historique/historique.component';
 import { InscriptionComponent } from './parent/inscription/inscription.component';
+import { ParentInscriptionComponent } from './parent/parent-inscription/parent-inscription.component';
 import { ParentprofilComponent } from './parent/parentprofil/parentprofil.component';
 import { SandboxComponent } from './sandbox/sandbox.component';
 
@@ -23,6 +25,10 @@ export const routes: Routes = [
   {
     path: 'editstageinst/:idStageDesc',
     component: EditstageinstComponent,
+  },
+  {
+    path: 'parentinscription',
+    component: ParentInscriptionComponent,
   },
   {
     path: 'createstagedesc',
@@ -58,7 +64,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'welcomePage',
-    pathMatch: 'full',
+    canActivate: [redirectionGuard],
+    component: ParentInscriptionComponent,
   },
 ];

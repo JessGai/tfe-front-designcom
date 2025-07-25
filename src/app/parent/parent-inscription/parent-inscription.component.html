@@ -1,0 +1,86 @@
+<h1>Veuillez completer votre profil :</h1>
+<form [formGroup]="parentInscriptionForm" class="form-container">
+  <div class="form-row">
+    <fdc-label> Nom </fdc-label>
+    <mat-form-field [class.highlight]="true">
+      <input matInput [formControlName]="'nomParent'" />
+      <mat-error> Le nom est obligatoire </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="form-row">
+    <fdc-label> Prénom </fdc-label>
+    <mat-form-field [class.highlight]="true">
+      <input matInput [formControlName]="'prenomParent'" />
+      <mat-error> Le prénom est obligatoire </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="form-row">
+    <fdc-label> Adresse </fdc-label>
+    <mat-form-field [class.highlight]="true">
+      <input matInput [formControlName]="'adresse'" />
+      <mat-error> L'adresse est obligatoire </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="form-row">
+    <fdc-label> Code postal </fdc-label>
+    <mat-form-field [class.highlight]="true">
+      <input matInput [formControlName]="'codePostal'" />
+      <mat-error
+        *ngIf="parentInscriptionForm.get('codePostal')?.hasError('required')"
+      >
+        Le code postal est obligatoire.
+      </mat-error>
+      <mat-error
+        *ngIf="parentInscriptionForm.get('codePostal')?.hasError('pattern')"
+      >
+        Le code postal doit avoir 4 chiffres.
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="form-row">
+    <fdc-label> Commune </fdc-label>
+    <mat-form-field [class.highlight]="true">
+      <input matInput [formControlName]="'commune'" />
+      <mat-error> La commune est obligatoire </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="form-row">
+    <fdc-label> Téléphone </fdc-label>
+    <mat-form-field [class.highlight]="true">
+      <input matInput [formControlName]="'telephone1'" />
+      <mat-error> Le numéro de téléphone est obligatoire </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="form-row">
+    <fdc-label> Téléphone supplémentaire </fdc-label>
+    <mat-form-field [class.highlight]="true">
+      <input matInput [formControlName]="'telephone2'" />
+    </mat-form-field>
+  </div>
+
+  <div class="form-row" *ngIf="auth.user$ | async as user">
+    <fdc-label> Email </fdc-label>
+    <mat-form-field [class.highlight]="true">
+      <input matInput [value]="user.email" type="email" disabled="true" />
+    </mat-form-field>
+  </div>
+
+  <div class="form-row button-row">
+    <div></div>
+    <button
+      mat-flat-button
+      class=""
+      color="tertiary"
+      disabled="false"
+      (click)="onSubmit()"
+    >
+      <mat-icon [svgIcon]="'valid'"></mat-icon>
+      Confirmer
+    </button>
+  </div>
+</form>
