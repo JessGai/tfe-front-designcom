@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>Inscription à {{ data.stage.titre }}</h2>
+
+<mat-dialog-content>
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Choisissez un enfant</mat-label>
+    <mat-select [(value)]="selectedEnfant" (selectionChange)="verifierAge()">
+      <mat-option *ngFor="let enfant of data.enfants" [value]="enfant">
+        {{ enfant.prenomEnfant }} {{ enfant.nomEnfant }} ({{
+          calculerAge(enfant.dateNaissance)
+        }}
+        ans)
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div *ngIf="ageIncorrect()" class="error text-red-600">
+    L’enfant n’a pas l’âge requis ({{ data.stage.ageMin }} à
+    {{ data.stage.ageMax }} ans)
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-flat-button color="error" (click)="onCancel()">
+    <mat-icon [svgIcon]="'cancel'"></mat-icon>
+    Annuler
+  </button>
+  <button
+    mat-flat-button
+    color="tertiary"
+    (click)="validerInscription()"
+    [disabled]="!selectedEnfant() || ageIncorrect()"
+  >
+    <mat-icon [svgIcon]="'valid'"></mat-icon>
+    Ajouter au panier
+  </button>
+</mat-dialog-actions>

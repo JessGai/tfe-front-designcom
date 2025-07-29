@@ -1,4 +1,4 @@
-<div class="card-container" *ngIf="stage() && !loading()">
+<div class="card-container" *ngIf="stage() && parent() && !loading() as stageData">
   <article class="stage-card">
     <mat-card>
       <mat-card-header>
@@ -48,6 +48,7 @@
           class="button-inscription"
           mat-stroked-button
           color="neutral-variant"
+          (click)="openInscriptionDialog(stage()!, parent()!.enfants)"
         >
           <mat-icon svgIcon="edit"></mat-icon>
           Inscription

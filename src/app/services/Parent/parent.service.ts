@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { Observable, switchMap } from 'rxjs';
-import { Parent, ParentWithChildren } from '../../models/parent_model';
+import { Enfant, Parent, ParentWithChildren } from '../../models/parent_model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +12,7 @@ export class ParentService {
   auth0 = inject(AuthService);
   readonly API_BASE_URL = 'http://localhost:8081/api/parent';
   readonly API_BASE_URL_PARENTENFANT = 'http://localhost:8081/api/parent/me';
+  readonly API_BASE_URL_ENFANT = 'http://localhost:8081/api/enfant';
 
   getParentWithChildren(): Observable<ParentWithChildren> {
     return this.http.get<ParentWithChildren>(this.API_BASE_URL_PARENTENFANT);
@@ -44,5 +45,12 @@ export class ParentService {
       parentData,
       { headers }
     );
+  }
+
+  addChild(enfantData: Enfant): Observable<Enfant> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    return this.http.post<Enfant>(`${this.API_BASE_URL_ENFANT}`, enfantData, {
+      headers,
+    });
   }
 }

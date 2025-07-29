@@ -1,38 +1,148 @@
-<p>parentprofil works!</p>
-
-<ul *ngIf="auth.user$ | async as user">
-  <li>{{ user.name }}</li>
-  <li>{{ user.email }}</li>
-</ul>
-`
-<div *ngIf="parent; else loading">
-  <h2>Parent :</h2>
-  <p><strong>ID :</strong> {{ parent.idParent }}</p>
-  <p><strong>Email :</strong> {{ parent.email }}</p>
-  <p><strong>Nom :</strong> {{ parent.nomParent }}</p>
-  <p><strong>Prénom :</strong> {{ parent.prenomParent }}</p>
-  <p>
-    <strong>Adresse :</strong> {{ parent.adresse }}, {{ parent.codePostal }}
-    {{ parent.commune }}
-  </p>
-  <p><strong>Téléphone 1 :</strong> {{ parent.telephone1 }}</p>
-  <p><strong>Téléphone 2 :</strong> {{ parent.telephone2 }}</p>
-  <p><strong>Auth0 User ID :</strong> {{ parent.auth0UserId }}</p>
-
-  <h3>Enfants :</h3>
-  <ul>
-    <li *ngFor="let enfant of parent.enfants">
-      <p><strong>ID :</strong> {{ enfant.idEnfant }}</p>
-      <p><strong>Nom :</strong> {{ enfant.nomEnfant }}</p>
-      <p><strong>Prénom :</strong> {{ enfant.prenomEnfant }}</p>
-      <p><strong>Date de naissance :</strong> {{ enfant.dateNaissance }}</p>
-      <p><strong>Genre :</strong> {{ enfant.genre }}</p>
-      <p><strong>Langue maternelle :</strong> {{ enfant.langueMaternelle }}</p>
-      <hr />
-    </li>
-  </ul>
-</div>
-
 <ng-template #loading>
   <p>Chargement des données...</p>
 </ng-template>
+
+<div class="form-container" *ngIf="parent; else loading">
+  <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon svgIcon="document-edition"></mat-icon>
+        Mes données
+      </mat-panel-title>
+      <mat-panel-description>
+        <button mat-icon-button class="" color="primary" disabled="false">
+          <mat-icon [svgIcon]="'edit'"></mat-icon>
+        </button>
+        <button mat-icon-button class="" color="error" disabled="false">
+          <mat-icon [svgIcon]="'trash'"></mat-icon>
+        </button>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="form-row">
+      <fdc-label> Nom </fdc-label>
+      <mat-form-field [class.highlight]="true">
+        <input matInput [value]="parent.nomParent" disabled="true" />
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <fdc-label> Prénom </fdc-label>
+      <mat-form-field [class.highlight]="true">
+        <input matInput [value]="parent.prenomParent" disabled="true" />
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <fdc-label> Adresse </fdc-label>
+      <mat-form-field [class.highlight]="true">
+        <input matInput [value]="parent.adresse" disabled="true" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <fdc-label> Code postal </fdc-label>
+      <mat-form-field [class.highlight]="true">
+        <input matInput [value]="parent.codePostal" disabled="true" />
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <fdc-label> Commune </fdc-label>
+      <mat-form-field [class.highlight]="true">
+        <input matInput [value]="parent.commune" disabled="true" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <fdc-label> Téléphone </fdc-label>
+      <mat-form-field [class.highlight]="true">
+        <input matInput [value]="parent.telephone1" disabled="true" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <fdc-label> Téléphone supplémentaire </fdc-label>
+      <mat-form-field [class.highlight]="true">
+        <input matInput [value]="parent.telephone2" disabled="true" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-row" *ngIf="auth.user$ | async as user">
+      <fdc-label> Email </fdc-label>
+      <mat-form-field [class.highlight]="true">
+        <input matInput [value]="user.email" type="email" disabled="true" />
+      </mat-form-field>
+    </div>
+  </mat-expansion-panel>
+</div>
+
+<div class="form-container" *ngIf="parent; else loading">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon svgIcon="document-edition"></mat-icon>
+        Mes enfants
+      </mat-panel-title>
+      <mat-panel-description>
+        <button
+          mat-icon-button
+          class=""
+          color="primary"
+          disabled="false"
+          [routerLink]="['/addchild', parent.idParent]"
+        >
+          <mat-icon
+            svgIcon="more-circle"
+            matTooltip="Ajouter un enfant"
+            matTooltipClass="primary"
+          ></mat-icon
+          >Ajouter un enfant
+        </button>
+        <button mat-icon-button class="" color="primary" disabled="false">
+          <mat-icon [svgIcon]="'edit'"></mat-icon>
+        </button>
+        <button mat-icon-button class="" color="error" disabled="false">
+          <mat-icon [svgIcon]="'trash'"></mat-icon>
+        </button>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div
+      class="form-container"
+      *ngFor="let enfant of parent.enfants; let i = index; let last = last"
+    >
+      <div class="form-row">
+        <fdc-label> Nom </fdc-label>
+        <mat-form-field [class.highlight]="true">
+          <input matInput [value]="enfant.nomEnfant" disabled="true" />
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <fdc-label> Prénom </fdc-label>
+        <mat-form-field [class.highlight]="true">
+          <input matInput [value]="enfant.prenomEnfant" disabled="true" />
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <fdc-label> Date de naissance </fdc-label>
+        <mat-form-field [class.highlight]="true">
+          <input
+            matInput
+            [value]="enfant.dateNaissance | date : 'dd MM yyyy'"
+            disabled="true"
+          />
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <fdc-label> Langue maternelle </fdc-label>
+        <mat-form-field [class.highlight]="true">
+          <input matInput [value]="enfant.langueMaternelle" disabled="true" />
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <fdc-label> Genre </fdc-label>
+        <mat-form-field [class.highlight]="true">
+          <input matInput [value]="enfant.genre" disabled="true" />
+        </mat-form-field>
+      </div>
+      <hr *ngIf="!last" class="child-separator" />
+    </div>
+  </mat-expansion-panel>
+</div>

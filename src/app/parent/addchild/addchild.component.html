@@ -1,0 +1,38 @@
+<form [formGroup]="enfantForm" (ngSubmit)="onSubmit()" class="form-container">
+  <div class="form-row">
+    <fdc-label>Nom</fdc-label>
+    <mat-form-field
+      ><input matInput formControlName="nomEnfant"
+    /></mat-form-field>
+  </div>
+
+  <div class="form-row">
+    <fdc-label>Prénom</fdc-label>
+    <mat-form-field
+      ><input matInput formControlName="prenomEnfant"
+    /></mat-form-field>
+  </div>
+
+  <div class="form-row">
+    <fdc-label>Date de naissance</fdc-label>
+    <mat-form-field
+      ><input matInput type="date" formControlName="dateNaissance"
+    /></mat-form-field>
+  </div>
+
+  <div class="form-row">
+    <fdc-label>Genre</fdc-label>
+    <mat-form-field><input matInput formControlName="genre" /></mat-form-field>
+  </div>
+
+  <div class="form-row">
+    <fdc-label>Langue maternelle</fdc-label>
+    <mat-form-field
+      ><input matInput formControlName="langueMaternelle"
+    /></mat-form-field>
+  </div>
+
+  <button mat-stroked-button color="tertiary" type="submit">
+    Ajouter l’enfant
+  </button>
+</form>

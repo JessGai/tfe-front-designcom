@@ -2,11 +2,16 @@ import { DatePipe, NgIf } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
+import { InscriptionDialogData } from '../../models/dialog-data.model';
+import { Enfant, ParentWithChildren } from '../../models/parent_model';
 import { StageForCards } from '../../models/stage_desc_model';
+import { AddchildtostageComponent } from '../../parent/addchildtostage/addchildtostage.component';
+import { ParentService } from '../../services/Parent/parent.service';
 import { StageService } from '../../services/stage.service';
 
 @Component({
@@ -26,10 +31,14 @@ export class StagedetailComponent {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private stageService = inject(StageService);
+  private parentService = inject(ParentService);
+  private dialog = inject(MatDialog);
+
   protected readonly themeImage = signal<string>('/assets/images/default.png');
   protected readonly stage = signal<StageForCards | null>(null);
   protected readonly loading = signal<boolean>(true);
   protected readonly error = signal<string | null>(null);
+  protected readonly parent = signal<ParentWithChildren | null>(null);
   protected readonly email = 'info@kidscamp.com';
   ngOnInit(): void {
     this.route.paramMap
@@ -57,6 +66,14 @@ export class StagedetailComponent {
           this.loading.set(false);
         },
       });
+    this.parentService.getParentWithChildren().subscribe({
+      next: (parentData) => {
+        this.parent.set(parentData);
+      },
+      error: (err) => {
+        console.error('Erreur chargement parent :', err);
+      },
+    });
   }
 
   calculateEndDate(startDate: Date | null | undefined): Date | null {
@@ -77,5 +94,16 @@ export class StagedetailComponent {
 
   getThemeImage(theme: string): string {
     return this.themeImageMap.get(theme) || '/assets/images/default.png';
+  }
+
+  //ouverture du pop-up pour l'inscription d'un enfant a un stage
+  openInscriptionDialog(stage: StageForCards, enfants: Enfant[]) {
+    this.dialog.open(AddchildtostageComponent, {
+      data: {
+        stage,
+        enfants,
+      } satisfies InscriptionDialogData,
+      width: '800px',
+    });
   }
 }
