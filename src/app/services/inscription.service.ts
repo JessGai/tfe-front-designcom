@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { Observable, switchMap } from 'rxjs';
+import { Inscriptiontobasket } from '../models/inscriptiontobasket.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,21 +15,18 @@ export class InscriptionService {
 
   /**
    * Inscrit un enfant à une instance de stage.
-   * @param idEnfant - ID de l’enfant à inscrire
-   * @param idStageInst - ID de l’instance du stage
+   * @param inscriptionData - objet inscription
    */
-  inscrire(idEnfant: number, idStageInst: number): Observable<void> {
+  inscrire(inscriptionData: Inscriptiontobasket): Observable<void> {
     return this.auth.getAccessTokenSilently().pipe(
       switchMap((token) => {
         const headers = new HttpHeaders({
           Authorization: `Bearer ${token}`,
         });
 
-        return this.http.post<void>(
-          `${this.API_BASE_URL}/${idEnfant}/${idStageInst}`,
-          null,
-          { headers }
-        );
+        return this.http.post<void>(this.API_BASE_URL, inscriptionData, {
+          headers,
+        });
       })
     );
   }

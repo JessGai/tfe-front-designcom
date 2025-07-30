@@ -12,8 +12,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { FdcLabelModule } from '@be-fgov-minfin/designcom-components';
 import { InscriptionDialogData } from '../../models/dialog-data.model';
+import { Inscriptiontobasket } from '../../models/inscriptiontobasket.model';
 import { Enfant } from '../../models/parent_model';
 import { InscriptionService } from '../../services/inscription.service';
+import { TransactionService } from '../../services/transaction.service';
 
 @Component({
   selector: 'app-addchildtostage',
@@ -35,6 +37,7 @@ export class AddchildtostageComponent {
   readonly dialogRef = inject(MatDialogRef<AddchildtostageComponent>);
   readonly data = inject<InscriptionDialogData>(MAT_DIALOG_DATA);
   readonly inscriptionService = inject(InscriptionService);
+  readonly transactionService = inject(TransactionService);
 
   readonly selectedEnfant = model<Enfant | null>(null);
   readonly ageIncorrect = signal(false);
@@ -56,11 +59,20 @@ export class AddchildtostageComponent {
 
     this.ageIncorrect.set(false);
 
-    this.inscriptionService
-      .inscrire(enfant.idEnfant, this.data.stage.idStageInst)
-      .subscribe(() => {
+    const inscriptionData: Inscriptiontobasket = {
+      idEnfant: enfant.idEnfant,
+      idStageInstance: this.data.stage.idStageInst,
+      idTransaction: this.data.idTransaction,
+    };
+    console.log('Inscription envoyée :', inscriptionData);
+    this.inscriptionService.inscrire(inscriptionData).subscribe({
+      next: () => {
         this.dialogRef.close(true);
-      });
+      },
+      error: (err) => {
+        console.error('Erreur lors de l’inscription :', err);
+      },
+    });
   }
 
   onCancel() {

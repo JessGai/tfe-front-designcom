@@ -10,6 +10,7 @@ import { redirectionGuard } from './guards/redirection.guard';
 import { AddchildComponent } from './parent/addchild/addchild.component';
 import { HistoriqueComponent } from './parent/historique/historique.component';
 import { InscriptionComponent } from './parent/inscription/inscription.component';
+import { PanierComponent } from './parent/panier/panier.component';
 import { ParentInscriptionComponent } from './parent/parent-inscription/parent-inscription.component';
 import { ParentprofilComponent } from './parent/parentprofil/parentprofil.component';
 import { SandboxComponent } from './sandbox/sandbox.component';
@@ -30,6 +31,10 @@ export const routes: Routes = [
   {
     path: 'addchild/:idParent',
     component: AddchildComponent,
+  },
+  {
+    path: 'panier/:idTransaction',
+    component: PanierComponent,
   },
   {
     path: 'parentinscription',
