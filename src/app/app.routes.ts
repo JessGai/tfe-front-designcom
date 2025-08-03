@@ -33,7 +33,7 @@ export const routes: Routes = [
     component: AddchildComponent,
   },
   {
-    path: 'panier/:idTransaction',
+    path: 'panier',
     component: PanierComponent,
   },
   {

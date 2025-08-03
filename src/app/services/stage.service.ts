@@ -55,11 +55,11 @@ export class StageService {
    * @returns Observable<StageDesc>
    */
   getStageById(id: number): Observable<StageDesc> {
-    const url = `${this.API_BASE_URL}/${id}`; // Interpolation dynamique pour l'ID
+    const url = `${this.API_BASE_URL}/${id}`;
     return this.http.get<StageDesc>(url).pipe(
       map((item) => ({
         ...item,
-        dateCreation: new Date(item.dUpdate), // Convertir la chaîne ISO en Date
+        dateCreation: new Date(item.dUpdate),
       }))
     );
   }

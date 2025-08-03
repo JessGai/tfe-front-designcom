@@ -1,33 +1,59 @@
-import { Component } from '@angular/core';
+import { CurrencyPipe, NgIf } from '@angular/common';
+import { Component, inject, signal } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import { AffichagePanier, PanierDetail } from '../../models/panier.model';
+import { ParentWithChildren } from '../../models/parent_model';
+import { PanierService } from '../../services/panier.service';
+import { ParentService } from '../../services/Parent/parent.service';
 
 @Component({
   selector: 'app-panier',
-  imports: [],
+  imports: [
+    MatCardModule,
+    MatTableModule,
+    MatIconModule,
+    CurrencyPipe,
+    NgIf,
+    MatButtonModule,
+  ],
   templateUrl: './panier.component.html',
   styleUrl: './panier.component.scss',
 })
 export class PanierComponent {
-  /** dataSource = signal<StageDesc[]>([]);
-  stageService = inject(StageService);
+  panier = signal<AffichagePanier | null>(null);
+  dataSource = signal<PanierDetail[]>([]);
+  readonly parent = signal<ParentWithChildren | null>(null);
+
+  panierService = inject(PanierService);
+  parentService = inject(ParentService);
 
   displayedColumns: string[] = [
-    'idStageDesc',
-    'titre',
-    'theme',
-    'description',
-    'ageMin',
-    'ageMax',
-    'expand',
+    'stageDescTitre',
+    'stageDescTheme',
+    'stageInstDateDebut',
+    'stageInstDateFin',
+    'enfantPrenom',
+    'enfantNom',
+    'stageInstPrix',
+    'actions',
   ];
 
-  loadData(): void {
-    this.stageService.getStageById(5).subscribe({
-      next: (data) => {
-        this.dataSource.set(data); // Signal dataSource
+  ngOnInit() {
+    this.parentService.getParentWithChildren().subscribe({
+      next: (parent) => {
+        this.parent.set(parent);
+        this.panierService.getPanier(parent.idParent).subscribe({
+          next: (data) => {
+            this.panier.set(data);
+            this.dataSource.set(data.liste ?? []);
+          },
+          error: (err) => console.error('Erreur panier :', err),
+        });
       },
-      error: (error) => {
-        console.error('Erreur lors du chargement:', error);
-      },
+      error: (err) => console.error('Erreur parent :', err),
     });
-  }*/
+  }
 }
