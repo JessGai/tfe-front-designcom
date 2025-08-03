@@ -12,10 +12,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { FdcLabelModule } from '@be-fgov-minfin/designcom-components';
 import { InscriptionDialogData } from '../../models/dialog-data.model';
-import { Inscriptiontobasket } from '../../models/inscriptiontobasket.model';
+import { AjoutTablePanier } from '../../models/panier.model';
 import { Enfant } from '../../models/parent_model';
-import { InscriptionService } from '../../services/inscription.service';
-import { TransactionService } from '../../services/transaction.service';
+import { PanierService } from '../../services/panier.service';
 
 @Component({
   selector: 'app-addchildtostage',
@@ -36,8 +35,7 @@ import { TransactionService } from '../../services/transaction.service';
 export class AddchildtostageComponent {
   readonly dialogRef = inject(MatDialogRef<AddchildtostageComponent>);
   readonly data = inject<InscriptionDialogData>(MAT_DIALOG_DATA);
-  readonly inscriptionService = inject(InscriptionService);
-  readonly transactionService = inject(TransactionService);
+  readonly panierService = inject(PanierService);
 
   readonly selectedEnfant = model<Enfant | null>(null);
   readonly ageIncorrect = signal(false);
@@ -59,13 +57,13 @@ export class AddchildtostageComponent {
 
     this.ageIncorrect.set(false);
 
-    const inscriptionData: Inscriptiontobasket = {
+    const inscriptionData: AjoutTablePanier = {
       idEnfant: enfant.idEnfant,
       idStageInstance: this.data.stage.idStageInst,
-      idTransaction: this.data.idTransaction,
+      idParent: this.data.idParent,
     };
     console.log('Inscription envoyée :', inscriptionData);
-    this.inscriptionService.inscrire(inscriptionData).subscribe({
+    this.panierService.addALineInPanier(inscriptionData).subscribe({
       next: () => {
         this.dialogRef.close(true);
       },

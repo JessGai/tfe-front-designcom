@@ -32,7 +32,7 @@ import { ParentService } from '../../services/Parent/parent.service';
   templateUrl: './parent-inscription.component.html',
   styleUrl: './parent-inscription.component.scss',
 })
-export class ParentInscriptionComponent {
+export class ParentInscriptionComponent /*implements OnInit*/ {
   loading = true;
 
   private route = inject(ActivatedRoute);
@@ -74,4 +74,10 @@ export class ParentInscriptionComponent {
       });
     });
   }
+  //ngOnInit(): void {
+  // this.router.navigate()
+  // OnInit (if parentInsccription is valid){
+  //-> redirige vers welcomePage
+  //}
+  //}
 }

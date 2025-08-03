@@ -10,6 +10,7 @@ export interface StageDesc {
 }
 
 export type StagedescList = StageDesc[];
+
 export interface PaginatedStageDescResponse {
   content: StageDesc[];
   totalElements: number;

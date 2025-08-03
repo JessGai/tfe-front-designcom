@@ -1,13 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
-import { Observable, switchMap } from 'rxjs';
-import { Inscriptiontobasket } from '../models/inscriptiontobasket.model';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class InscriptionService {
+  /*
   private readonly http = inject(HttpClient);
   private readonly auth = inject(AuthService);
 
@@ -17,6 +14,7 @@ export class InscriptionService {
    * Inscrit un enfant à une instance de stage.
    * @param inscriptionData - objet inscription
    */
+  /*
   inscrire(inscriptionData: Inscriptiontobasket): Observable<void> {
     return this.auth.getAccessTokenSilently().pipe(
       switchMap((token) => {
@@ -30,4 +28,5 @@ export class InscriptionService {
       })
     );
   }
+  */
 }

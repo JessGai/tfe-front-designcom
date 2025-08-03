@@ -5,5 +5,4 @@ export interface InscriptionDialogData {
   enfants: Enfant[];
   stage: StageForCards;
   idParent: number;
-  idTransaction: number;
 }

@@ -39,7 +39,7 @@ export class StageService {
         ...response,
         content: response.content.map((item) => ({
           ...item,
-          dateCreation: new Date(item.dUpdate), // Convertir string ISO8601 -> Date
+          dateCreation: new Date(item.dUpdate),
         })),
       })),
       catchError(this.handleError)
@@ -76,7 +76,7 @@ export class StageService {
    * @param stageData - Les données de la nouvelle description à créer.
    */
   createStageDescription(stageData: StageDesc): Observable<StageDesc> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' }); // Headers (optionnels)
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<StageDesc>(`${this.API_BASE_URL}`, stageData, {
       headers,
     });

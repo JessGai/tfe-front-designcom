@@ -10,11 +10,9 @@ import { switchMap } from 'rxjs';
 import { InscriptionDialogData } from '../../models/dialog-data.model';
 import { Enfant, ParentWithChildren } from '../../models/parent_model';
 import { StageForCards } from '../../models/stage_desc_model';
-import { Transaction } from '../../models/transaction.model';
 import { AddchildtostageComponent } from '../../parent/addchildtostage/addchildtostage.component';
 import { ParentService } from '../../services/Parent/parent.service';
 import { StageService } from '../../services/stage.service';
-import { TransactionService } from '../../services/transaction.service';
 
 @Component({
   selector: 'app-stagedetail',
@@ -34,7 +32,6 @@ export class StagedetailComponent {
   private router = inject(Router);
   private stageService = inject(StageService);
   private parentService = inject(ParentService);
-  private transactionService = inject(TransactionService);
   private dialog = inject(MatDialog);
 
   protected readonly themeImage = signal<string>('/assets/images/default.png');
@@ -42,7 +39,6 @@ export class StagedetailComponent {
   protected readonly loading = signal<boolean>(true);
   protected readonly error = signal<string | null>(null);
   protected readonly parent = signal<ParentWithChildren | null>(null);
-  protected readonly transaction = signal<Transaction | null>(null);
 
   protected readonly email = 'info@kidscamp.com';
 
@@ -75,14 +71,6 @@ export class StagedetailComponent {
     this.parentService.getParentWithChildren().subscribe({
       next: (parentData) => {
         this.parent.set(parentData);
-
-        this.transactionService
-          .getOrCreateOpenTransaction(parentData.idParent)
-          .subscribe({
-            next: (tx) => this.transaction.set(tx),
-            error: (err) =>
-              console.error('Erreur récupération transaction :', err),
-          });
       },
       error: (err) => {
         console.error('Erreur chargement parent :', err);
@@ -115,23 +103,11 @@ export class StagedetailComponent {
     const parent = this.parent();
     if (!parent) return;
 
-    const transaction = this.transaction();
-    if (!transaction) {
-      console.warn('Transaction ouverte introuvable');
-      return;
-    }
-
-    if (!transaction) {
-      console.warn('Aucune transaction ouverte trouvée !');
-      return;
-    }
-
     this.dialog.open(AddchildtostageComponent, {
       data: {
         stage,
         enfants,
         idParent: parent.idParent,
-        idTransaction: transaction.idTransaction,
       } satisfies InscriptionDialogData,
       width: '800px',
     });
