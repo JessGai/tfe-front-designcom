@@ -1,100 +1,109 @@
 <h1>Panier</h1>
+<ng-container *ngIf="panier() && panier()!.liste.length > 0; else aucunPanier">
+  <mat-card>
+    <mat-card-header>
+      <mat-icon [svgIcon]="'star'" mat-card-avatar></mat-icon>
+      <mat-card-title> Vos inscriptions: </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-table [dataSource]="dataSource()" matSort>
+        <ng-container matColumnDef="stageDescTitre">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Titre du stage
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.stageDescTitre }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="stageDescTheme">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Theme du stage
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.stageDescTheme }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="stageInstDateDebut">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Date de début
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.stageInstDateDebut }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="stageInstDateFin">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Date de fin
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.stageInstDateFin }}
+          </mat-cell>
+        </ng-container>
 
-<mat-card>
-  <mat-card-header>
-    <mat-icon [svgIcon]="'star'" mat-card-avatar></mat-icon>
-    <mat-card-title> Vos inscriptions: </mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <mat-table [dataSource]="dataSource()" matSort>
-      <ng-container matColumnDef="stageDescTitre">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-          Titre du stage
-        </mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          {{ element.stageDescTitre }}
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="stageDescTheme">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-          Theme du stage
-        </mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          {{ element.stageDescTheme }}
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="stageInstDateDebut">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-          Date de début
-        </mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          {{ element.stageInstDateDebut }}
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="stageInstDateFin">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-          Date de fin
-        </mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          {{ element.stageInstDateFin }}
-        </mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="enfantPrenom">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Prénom
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.enfantPrenom }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="enfantNom">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Nom
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.enfantNom }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="stageInstPrix">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Prix
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.stageInstPrix }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-icon-button class="" color="error">
+              <mat-icon svgIcon="trash"></mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
 
-      <ng-container matColumnDef="enfantPrenom">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-          Prénom
-        </mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          {{ element.enfantPrenom }}
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="enfantNom">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-          Nom
-        </mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          {{ element.enfantNom }}
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="stageInstPrix">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-          Prix
-        </mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          {{ element.stageInstPrix }}
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> </mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          <button mat-icon-button class="" color="error">
-            <mat-icon svgIcon="trash"></mat-icon>
-          </button>
-        </mat-cell>
-      </ng-container>
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-    </mat-table>
-
-    <div style="margin-top: 2rem">
-      <mat-card>
-        <mat-card-header>
-          <mat-card-title>Résumé</mat-card-title>
-        </mat-card-header>
-        <mat-card-content *ngIf="panier() as p">
-          <p>
-            <strong>Montant total :</strong>
-            {{ p.montantTotal | currency : "EUR" }}
-          </p>
-          <div *ngIf="p.tauxReduction > 0">
-            <p><strong>Réduction :</strong> {{ p.tauxReduction * 100 }}%</p>
+      <div style="margin-top: 2rem">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Résumé</mat-card-title>
+          </mat-card-header>
+          <mat-card-content *ngIf="panier() as p">
             <p>
-              <strong>Montant avec réduction :</strong>
-              {{ p.montantAvecReduction | currency : "EUR" }}
+              <strong>Montant total :</strong>
+              {{ p.montantTotal | currency : "EUR" }}
             </p>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
-  </mat-card-content>
-</mat-card>
+            <div *ngIf="p.tauxReduction > 0">
+              <p><strong>Réduction :</strong> {{ p.tauxReduction * 100 }}%</p>
+              <p>
+                <strong>Montant avec réduction :</strong>
+                {{ p.montantAvecReduction | currency : "EUR" }}
+              </p>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
+<ng-template #aucunPanier>
+  <mat-card>
+    <mat-card-content>
+      <p>Aucune inscription en cours pour le moment.</p>
+    </mat-card-content>
+  </mat-card>
+</ng-template>
