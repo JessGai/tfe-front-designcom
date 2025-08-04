@@ -56,4 +56,26 @@ export class PanierComponent {
       error: (err) => console.error('Erreur parent :', err),
     });
   }
+
+  payer() {
+    const montant = this.panier()?.montantAvecReduction ?? 0;
+
+    if (montant <= 0) {
+      alert('Le montant du panier est invalide.');
+      return;
+    }
+
+    this.panierService.startPayment(montant).subscribe({
+      next: (res) => {
+        window.location.href = res.checkoutUrl;
+      },
+      error: (err) => {
+        console.error(
+          'Erreur lors de la création de la session de paiement :',
+          err
+        );
+        alert('Erreur lors du paiement. Veuillez réessayer.');
+      },
+    });
+  }
 }

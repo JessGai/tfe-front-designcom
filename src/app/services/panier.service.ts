@@ -30,4 +30,14 @@ export class PanierService {
     const url = `${this.API_BASE_URL}/${idParent}`;
     return this.http.get<AffichagePanier>(url);
   }
+
+  startPayment(montant: number): Observable<{ checkoutUrl: string }> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post<{ checkoutUrl: string }>(
+      'http://localhost:8081/api/paiement/create-checkout-session',
+      { montant },
+      { headers }
+    );
+  }
 }

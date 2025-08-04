@@ -7,6 +7,7 @@ import { EditstageinstComponent } from './administrateur/editstageinst/editstage
 import { StagedetailComponent } from './administrateur/stagedetail/stagedetail.component';
 import { WelcomePageComponent } from './common/welcome-page/welcome-page.component';
 import { redirectionGuard } from './guards/redirection.guard';
+import { SuccessComponent } from './paiement/success/success.component';
 import { AddchildComponent } from './parent/addchild/addchild.component';
 import { HistoriqueComponent } from './parent/historique/historique.component';
 import { InscriptionComponent } from './parent/inscription/inscription.component';
@@ -31,6 +32,10 @@ export const routes: Routes = [
   {
     path: 'addchild/:idParent',
     component: AddchildComponent,
+  },
+  {
+    path: 'paiement/success',
+    component: SuccessComponent,
   },
   {
     path: 'panier',
