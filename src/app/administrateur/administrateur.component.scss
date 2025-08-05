@@ -22,9 +22,19 @@
 }
 
 .instances-title {
-  margin: 0; /* Supprime les marges par défaut du <h3> */
+  margin: 0;
+  color: #0861ac;
 }
 
 .moreIcon {
   cursor: pointer; /* Ajoute un curseur 'pointer' à l'icône */
+}
+.example-element-detail {
+  margin-bottom: 32px;
+  margin-left: 40px;
+  margin-right: 32px;
+}
+.table-container {
+  margin-left: 32px;
+  margin-right: 32px;
 }

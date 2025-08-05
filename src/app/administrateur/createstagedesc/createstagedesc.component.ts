@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -7,8 +7,8 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { Router, RouterModule } from '@angular/router';
 import { FdcLabelModule } from '@be-fgov-minfin/designcom-components';
 import { StageService } from '../../services/stage.service';
@@ -21,30 +21,24 @@ import { StageService } from '../../services/stage.service';
     MatInputModule,
     FdcLabelModule,
     MatButtonModule,
-    MatIcon,
     RouterModule,
+    MatSelectModule,
   ],
   templateUrl: './createstagedesc.component.html',
   styleUrl: './createstagedesc.component.scss',
 })
 export class CreatestagedescComponent {
-  // Déclare le formulaire comme un FormGroup
-  stageForm: FormGroup;
+  private readonly formBuilder = inject(FormBuilder);
+  private readonly stageService = inject(StageService);
+  private readonly router = inject(Router);
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private stageService: StageService,
-    private router: Router
-  ) {
-    // Initialisation du FormGroup avec des FormControls et leurs validations
-    this.stageForm = this.formBuilder.group({
-      titre: ['', Validators.required],
-      description: ['', Validators.required],
-      theme: ['', Validators.required],
-      ageMin: [null, [Validators.required, Validators.min(3)]],
-      ageMax: [null, [Validators.required, Validators.min(4)]],
-    });
-  }
+  stageForm: FormGroup = this.formBuilder.group({
+    titre: ['', Validators.required],
+    description: ['', Validators.required],
+    theme: ['', Validators.required],
+    ageMin: [null, [Validators.required, Validators.min(3)]],
+    ageMax: [null, [Validators.required, Validators.min(4)]],
+  });
 
   /**
    * Soumet les données du formulaire
@@ -52,12 +46,13 @@ export class CreatestagedescComponent {
   onSubmit(): void {
     if (this.stageForm.valid) {
       const stageData = this.stageForm.value;
-      console.log('Données envoyées au serveur:', stageData); // Affiche les données envoyées
+      console.log('Données envoyées au serveur:', stageData);
       this.stageService.createStageDescription(this.stageForm.value).subscribe({
         next: (response) => {
           console.log('Stage créé avec succès:', response);
           alert('Stage créé correctement !');
-          this.stageForm.reset(); // Réinitialise le formulaire après succès
+          this.stageForm.reset();
+          this.navigateToAdmin();
         },
         error: (err) => {
           console.error('Erreur lors de la création du stage:', err);
@@ -75,4 +70,14 @@ export class CreatestagedescComponent {
   navigateToAdmin(): void {
     this.router.navigate(['/administrateur']);
   }
+
+  readonly themes = [
+    { label: 'Football', value: 'Football' },
+    { label: 'Danse', value: 'Dance' },
+    { label: 'Loisirs Créatifs', value: 'Loisirs Créatifs' },
+    { label: 'Musique', value: 'Musique' },
+    { label: 'Sciences', value: 'Sciences' },
+    { label: 'Musique', value: 'Musique' },
+    { label: 'Multi-sport', value: 'Multi-sport' },
+  ];
 }

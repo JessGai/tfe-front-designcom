@@ -6,7 +6,13 @@ import {
   trigger,
 } from '@angular/animations';
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, computed, signal, WritableSignal } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -24,7 +30,7 @@ import { StageService } from '../services/stage.service';
   selector: 'app-administrateur',
   imports: [
     CommonModule,
-    ReactiveFormsModule, // Utilisation des Reactive Forms de préférence
+    ReactiveFormsModule,
     MatTableModule,
     MatFormFieldModule,
     MatInputModule,
@@ -50,6 +56,9 @@ import { StageService } from '../services/stage.service';
   ],
 })
 export class AdministrateurComponent {
+  private readonly stageService = inject(StageService);
+  private readonly router = inject(Router);
+
   // Signals pour les données
   dataSource = signal<StageDescriptionWithInstances[]>([]);
   themes = signal<string[]>([]);
@@ -94,10 +103,10 @@ export class AdministrateurComponent {
     });
 
     // Inclure les lignes d'expansion
-    const expandableRows: Array<
+    const expandableRows: (
       | StageDescriptionWithInstances
       | { detailRow: true; element: StageDescriptionWithInstances }
-    > = [];
+    )[] = [];
 
     filteredRows.forEach((mainRow) => {
       expandableRows.push(mainRow); // Ligne principale
@@ -106,8 +115,6 @@ export class AdministrateurComponent {
 
     return expandableRows;
   });
-
-  constructor(private stageService: StageService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadData();

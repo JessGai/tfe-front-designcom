@@ -126,4 +126,16 @@ export class StageService {
   private getThemeImage(theme: string): string {
     return this.themeImageMap.get(theme) || '/assets/images/default.png';
   }
+
+  updateStageInstance(id: number, stageData: StageInst): Observable<StageInst> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<StageInst>(
+      `${this.API_BASE_URL_INSTANCE}/${id}`,
+      stageData,
+      { headers }
+    );
+  }
+  getStageInstanceById(id: number): Observable<StageInst> {
+    return this.http.get<StageInst>(`${this.API_BASE_URL_INSTANCE}/${id}`);
+  }
 }

@@ -43,6 +43,7 @@ export class EditstageinstComponent implements OnInit {
 
   // Données liées à la description du stage
   idStageDesc!: number;
+  idStageInst!: number;
   stageDescription!: StageDesc;
 
   //Formulaire
@@ -64,13 +65,17 @@ export class EditstageinstComponent implements OnInit {
   //initialisation des données
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
-      const id = params.get('idStageDesc');
-      if (id && !isNaN(+id)) {
-        this.idStageDesc = +id;
+      const idDesc = params.get('idStageDesc');
+      const idInst = params.get('idStageInst');
+      if (idDesc && !isNaN(+idDesc) && idInst && !isNaN(+idInst)) {
+        this.idStageDesc = +idDesc;
+        this.idStageInst = +idInst;
+
         this.fetchStageDescription();
+        this.fetchStageInstance();
       } else {
-        console.error("ID invalide ou non défini dans l'URL.");
-        alert('ID de la description stage invalide.');
+        console.error('ID(s) invalide(s) ou non défini(s) dans l’URL.');
+        alert('Impossible de charger les données, identifiants invalides.');
       }
     });
   }
@@ -91,29 +96,43 @@ export class EditstageinstComponent implements OnInit {
     });
   }
 
+  //REcup stageInst:
+  fetchStageInstance(): void {
+    this.stageService.getStageInstanceById(this.idStageInst).subscribe({
+      next: (instance) => {
+        this.stageInstanceForm.patchValue(instance);
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement de l’instance :', err);
+        alert('Erreur lors du chargement de l’instance.');
+      },
+    });
+  }
+
   //Soumission du formulaire
   onSubmit(): void {
     if (this.stageInstanceForm.valid) {
-      const stageData = this.stageInstanceForm.value;
-
-      const statutData = {
-        ...stageData,
-        statut: stageData.statut === 'actif',
+      const formValue = this.stageInstanceForm.getRawValue(); // pour récupérer les champs disabled
+      const dataToUpdate = {
+        ...formValue,
+        statut: formValue.statut === 'true',
       };
 
-      console.log('Données envoyées au serveur:', stageData);
+      console.log('Données envoyées au serveur (PUT):', dataToUpdate);
 
-      this.stageService.createStageInstance(stageData).subscribe({
-        next: (response) => {
-          console.log('Stage créé avec succès:', response);
-          alert('Stage créé correctement !');
-          this.stageInstanceForm.reset();
-        },
-        error: (err) => {
-          console.error('Erreur lors de la création du stage:', err);
-          alert('Erreur lors de la création du stage.');
-        },
-      });
+      this.stageService
+        .updateStageInstance(this.idStageInst, dataToUpdate)
+        .subscribe({
+          next: (updated) => {
+            console.log('Stage modifié avec succès:', updated);
+            alert('Stage modifié correctement !');
+            this.router.navigate(['/administrateur']);
+          },
+          error: (err) => {
+            console.error('Erreur lors de la modification du stage:', err);
+            alert('Erreur lors de la modification du stage.');
+          },
+        });
     } else {
       console.log('Formulaire invalide', this.stageInstanceForm.errors);
       alert('Veuillez corriger les erreurs dans le formulaire.');

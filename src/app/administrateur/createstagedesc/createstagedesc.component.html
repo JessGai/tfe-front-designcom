@@ -1,67 +1,78 @@
-<mat-icon class="homeIcon" (click)="navigateToHome()">home </mat-icon>
-<mat-icon svgIcon="arrow-left" class="arrow-left" (click)="navigateToAdmin()"
-  >arrow-left
-</mat-icon>
-
 <h1>Création d'une nouvelle description de stage</h1>
 <form [formGroup]="stageForm" (ngSubmit)="onSubmit()">
   <div class="createstagedesc">
-    <fdc-label class="label-form" id="idTitre"> Titre: </fdc-label>
-    <mat-form-field class="input-form-field">
+    <fdc-label class="label-form" id="idTitre" [required]="true">
+      Titre:
+    </fdc-label>
+    <mat-form-field class="input-form-field" [class.highlight]="'highlight'">
       <input
         matInput
         aria-labelledby="labelIdDefault"
         placeholder="Titre du stage"
         formControlName="titre"
       />
+      <mat-error> Le titre est obligatoire ! </mat-error>
     </mat-form-field>
   </div>
 
   <div class="createstagedesc">
-    <fdc-label class="label-form" id="idDesc"> Description: </fdc-label>
-    <mat-form-field class="input-form-field">
+    <fdc-label class="label-form" id="idDesc" [required]="true">
+      Description:
+    </fdc-label>
+    <mat-form-field class="input-form-field" [class.highlight]="'highlight'">
       <input
         matInput
         aria-labelledby="labelIdDefault"
         placeholder="Description"
         formControlName="description"
       />
+      <mat-error> La description est obligatoire ! </mat-error>
     </mat-form-field>
   </div>
 
   <div class="createstagedesc">
-    <fdc-label class="label-form" id="idTheme"> Thème du stage: </fdc-label>
-    <mat-form-field class="input-form-field">
-      <input
-        matInput
-        aria-labelledby="labelIdDefault"
-        placeholder="Thème"
-        formControlName="theme"
-      />
+    <fdc-label class="label-form" id="idTheme" [required]="true">
+      Thème du stage:
+    </fdc-label>
+    <mat-form-field [class.highlight]="'highlight'" class="input-form-field">
+      <mat-select placeholder="Sélectionnez un thème" formControlName="theme">
+        @for (item of themes; track item) {
+        <mat-option [value]="item.value">
+          {{ item.label }}
+        </mat-option>
+        }
+      </mat-select>
+      <mat-error> Le thème est obligatoire ! </mat-error>
     </mat-form-field>
   </div>
 
   <div class="createstagedesc">
-    <fdc-label class="label-form" id="idAgeMin"> Age minimum: </fdc-label>
-    <mat-form-field class="input-form-field">
+    <fdc-label class="label-form" id="idAgeMin" [required]="true">
+      Age minimum:
+    </fdc-label>
+    <mat-form-field class="input-form-field" [class.highlight]="'highlight'">
       <input
         matInput
         aria-labelledby="labelIdDefault"
         placeholder="Age minimum"
         formControlName="ageMin"
       />
+      <mat-error> L'âge minimum est obligatoire ! </mat-error>
     </mat-form-field>
   </div>
 
   <div class="createstagedesc">
-    <fdc-label class="label-form" id="idAgeMax"> Age maxmum: </fdc-label>
-    <mat-form-field class="input-form-field">
+    <fdc-label class="label-form" id="idAgeMax" [required]="true">
+      Age maxmum:
+    </fdc-label>
+    <mat-form-field class="input-form-field" [class.highlight]="'highlight'">
       <input
         matInput
         aria-labelledby="labelIdDefault"
         placeholder="Age maximum"
         formControlName="ageMax"
       />
+      <mat-error> L'âge maximum est obligatoire ! </mat-error>
     </mat-form-field>
   </div>
   <div class="button-container">

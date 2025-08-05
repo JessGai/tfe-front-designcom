@@ -26,7 +26,7 @@ export const routes: Routes = [
     component: CreatestageinstComponent,
   },
   {
-    path: 'editstageinst/:idStageDesc',
+    path: 'editstageinst/:idStageDesc/:idStageInst',
     component: EditstageinstComponent,
   },
   {

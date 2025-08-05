@@ -1,5 +1,3 @@
-<mat-icon class="homeIcon" (click)="navigateToHome()">home </mat-icon>
-
 <div class="search-container">
   <div class="searchPeriod">
     <!-- Filtre par période -->
@@ -98,7 +96,7 @@
           disabled="false"
           [routerLink]="'/createstagedesc'"
         >
-          <mat-icon svgIcon="more"></mat-icon>
+          <mat-icon svgIcon="more-circle" color="tertiary" />
         </button>
       </th>
       <td mat-cell *matCellDef="let element">
@@ -145,7 +143,7 @@
                 (click)="logElementId(element)"
                 [routerLink]="['/createstageinst', element.element.idStageDesc]"
               >
-                <mat-icon svgIcon="more"></mat-icon>
+                <mat-icon svgIcon="more" color="secondary"></mat-icon>
                 Créer une instance
               </button>
             </div>
@@ -222,20 +220,18 @@
                 <th mat-header-cell *matHeaderCellDef>Actions</th>
                 <td mat-cell *matCellDef="let instance">
                   <button
-                    mat-button
+                    mat-icon-button
                     color="primary"
-                    size="small"
                     [routerLink]="[
                       '/editstageinst',
-                      element.element.idStageDesc
+                      element.element.idStageDesc,
+                      instance.idStageInst
                     ]"
                   >
-                    <mat-icon>edit</mat-icon>
-                    Modifier
+                    <mat-icon svgIcon="edit" />
                   </button>
-                  <button mat-button color="warn" size="small">
-                    <mat-icon>delete</mat-icon>
-                    Supprimer
+                  <button mat-icon-button color="error">
+                    <mat-icon svgIcon="trash" />
                   </button>
                 </td>
               </ng-container>

@@ -1,7 +1,12 @@
+h1 {
+  margin-left: 40px;
+}
 .createstagedesc {
   display: flex;
   align-items: center;
-  margin-bottom: 1em; /* Ajoute un espace entre les lignes */
+  margin-bottom: 16px;
+  margin-left: 80px;
+  margin-right: 80px;
 }
 
 .label-form {
@@ -23,10 +28,5 @@
 
 .button {
   width: auto;
-}
-.homeIcon {
-  cursor: pointer;
-}
-.arrow-left {
-  cursor: pointer;
+  margin-right: 80px;
 }
