@@ -138,4 +138,8 @@ export class StageService {
   getStageInstanceById(id: number): Observable<StageInst> {
     return this.http.get<StageInst>(`${this.API_BASE_URL_INSTANCE}/${id}`);
   }
+
+  deleteStageInstance(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.API_BASE_URL_INSTANCE}/${id}`);
+  }
 }

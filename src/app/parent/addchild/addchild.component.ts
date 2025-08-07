@@ -36,8 +36,7 @@ export class AddchildComponent {
     nomEnfant: ['', Validators.required],
     prenomEnfant: ['', Validators.required],
     dateNaissance: ['', Validators.required],
-    genre: ['', Validators.required],
-    langueMaternelle: ['', Validators.required],
+    commentaire: [''],
   });
 
   onSubmit() {
@@ -45,7 +44,7 @@ export class AddchildComponent {
 
     const formData = {
       ...this.enfantForm.value,
-      idParent: this.idParent, // 👈 ajoute l’id au payload
+      idParent: this.idParent,
     };
 
     this.parentService.addChild(formData).subscribe({

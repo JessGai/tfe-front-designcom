@@ -21,6 +21,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { Router, RouterModule } from '@angular/router';
 import { StageDescriptionWithInstances } from '../models/stage_desc_model';
@@ -41,6 +42,7 @@ import { StageService } from '../services/stage.service';
     MatSelectModule,
     RouterModule,
     DatePipe,
+    MatSnackBarModule,
   ],
   templateUrl: './administrateur.component.html',
   styleUrl: './administrateur.component.scss',
@@ -58,6 +60,7 @@ import { StageService } from '../services/stage.service';
 export class AdministrateurComponent {
   private readonly stageService = inject(StageService);
   private readonly router = inject(Router);
+  private readonly snackBar = inject(MatSnackBar);
 
   // Signals pour les données
   dataSource = signal<StageDescriptionWithInstances[]>([]);
@@ -123,7 +126,7 @@ export class AdministrateurComponent {
   loadData(): void {
     this.stageService.getStageDescriptionsWithInstances().subscribe({
       next: (data) => {
-        this.dataSource.set(data); // Signal dataSource
+        this.dataSource.set([...data]); // Signal dataSource
         this.themes.set([...new Set(data.map((stage) => stage.theme))]); // Signal themes
         this.ageMinValues.set(
           [...new Set(data.map((stage) => stage.ageMin))].sort((a, b) => a - b)
@@ -170,5 +173,38 @@ export class AdministrateurComponent {
     console.log('Instance imbriquée :', instance);
     console.log("ID du stage pour création d'instance:", instance.idStageDesc);
     console.log('idStageDesc :', instance.element?.idStageDesc);
+  }
+
+  protected showCustomSnackBar(
+    message: string,
+    panelClass: 'error' | 'warning' | 'info' | 'success' = 'info'
+  ): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 4000,
+      panelClass,
+      verticalPosition: 'top',
+      horizontalPosition: 'right',
+    });
+  }
+
+  onDeleteInstance(id: number): void {
+    if (confirm('Voulez-vous vraiment supprimer cette instance ?')) {
+      this.stageService.deleteStageInstance(id).subscribe({
+        next: () => {
+          // recharge les données :
+          this.loadData();
+          this.showCustomSnackBar('Instance supprimée avec succès.', 'success');
+        },
+        error: (err) => {
+          console.error('Erreur lors de la suppression:', err);
+          const msg =
+            err.error?.message ||
+            err.error?.error ||
+            err.message ||
+            'Impossible de supprimer cette instance.';
+          this.showCustomSnackBar(msg, 'error');
+        },
+      });
+    }
   }
 }

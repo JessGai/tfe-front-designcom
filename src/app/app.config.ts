@@ -7,6 +7,7 @@ import { authHttpInterceptorFn, provideAuth0 } from '@auth0/auth0-angular';
 import { provideFinanceComponents } from '@be-fgov-minfin/designcom-components';
 import { default as packageInfo } from '../../package.json';
 import { routes } from './app.routes';
+import { errorInterceptorFn } from './Config/error.intercepto';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -47,6 +48,8 @@ export const appConfig: ApplicationConfig = {
         ],
       },
     }),
-    provideHttpClient(withInterceptors([authHttpInterceptorFn])),
+    provideHttpClient(
+      withInterceptors([authHttpInterceptorFn, errorInterceptorFn])
+    ),
   ],
 };

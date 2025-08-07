@@ -4,8 +4,7 @@ export interface Enfant {
   nomEnfant: string;
   prenomEnfant: string;
   dateNaissance: string;
-  genre: string;
-  langueMaternelle: string;
+  commentaire: string;
 }
 
 export interface ParentWithChildren {

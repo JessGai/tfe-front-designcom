@@ -131,15 +131,9 @@
         </mat-form-field>
       </div>
       <div class="form-row">
-        <fdc-label> Langue maternelle </fdc-label>
+        <fdc-label> Commentaires </fdc-label>
         <mat-form-field [class.highlight]="true">
-          <input matInput [value]="enfant.langueMaternelle" disabled="true" />
-        </mat-form-field>
-      </div>
-      <div class="form-row">
-        <fdc-label> Genre </fdc-label>
-        <mat-form-field [class.highlight]="true">
-          <input matInput [value]="enfant.genre" disabled="true" />
+          <input matInput [value]="enfant.commentaire" disabled="true" />
         </mat-form-field>
       </div>
       <hr *ngIf="!last" class="child-separator" />
