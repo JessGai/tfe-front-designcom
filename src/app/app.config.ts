@@ -45,6 +45,14 @@ export const appConfig: ApplicationConfig = {
               },
             },
           },
+          {
+            uri: 'http://localhost:8081/api/historique/*',
+            tokenOptions: {
+              authorizationParams: {
+                audience: 'https://api.kidscamp.com',
+              },
+            },
+          },
         ],
       },
     }),

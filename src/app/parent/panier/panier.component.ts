@@ -59,13 +59,18 @@ export class PanierComponent {
 
   payer() {
     const montant = this.panier()?.montantAvecReduction ?? 0;
+    const idParent = this.parent()?.idParent;
 
     if (montant <= 0) {
       alert('Le montant du panier est invalide.');
       return;
     }
+    if (!idParent) {
+      alert('Identifiant du parent non trouvé');
+      return;
+    }
 
-    this.panierService.startPayment(montant).subscribe({
+    this.panierService.startPayment(montant, idParent).subscribe({
       next: (res) => {
         window.location.href = res.checkoutUrl;
       },

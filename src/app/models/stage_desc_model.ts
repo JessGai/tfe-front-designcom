@@ -22,6 +22,7 @@ export interface StageInst {
   idStageInst: number;
   prix: number;
   dateDebut: Date;
+  dateFin: Date;
   nbrParticipant: number;
   nbrInscrit: number;
   statut: boolean;

@@ -46,6 +46,18 @@
   </div>
 
   <div class="createstagedesc">
+    <fdc-label class="label-form" id="idDate"> Date de fin: </fdc-label>
+    <mat-form-field class="input-form-field">
+      <input
+        matInput
+        aria-labelledby="labelIdDefault"
+        formControlName="dateFin"
+      />
+      <mat-error> La date est obligatoire! </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="createstagedesc">
     <fdc-label class="label-form" id="idParticipant">
       Nombre de participants:
     </fdc-label>

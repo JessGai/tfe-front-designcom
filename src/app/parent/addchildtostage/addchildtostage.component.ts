@@ -10,6 +10,7 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { Router } from '@angular/router';
 import { FdcLabelModule } from '@be-fgov-minfin/designcom-components';
 import { InscriptionDialogData } from '../../models/dialog-data.model';
 import { AjoutTablePanier } from '../../models/panier.model';
@@ -36,6 +37,7 @@ export class AddchildtostageComponent {
   readonly dialogRef = inject(MatDialogRef<AddchildtostageComponent>);
   readonly data = inject<InscriptionDialogData>(MAT_DIALOG_DATA);
   readonly panierService = inject(PanierService);
+  readonly router = inject(Router);
 
   readonly selectedEnfant = model<Enfant | null>(null);
   readonly ageIncorrect = signal(false);
@@ -66,6 +68,7 @@ export class AddchildtostageComponent {
     this.panierService.addALineInPanier(inscriptionData).subscribe({
       next: () => {
         this.dialogRef.close(true);
+        this.router.navigate(['/panier']);
       },
       error: (err) => {
         console.error('Erreur lors de l’inscription :', err);

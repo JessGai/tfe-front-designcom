@@ -17,9 +17,8 @@ export const errorInterceptorFn: HttpInterceptorFn = (
 
       if (error.error?.message) {
         customMessage = error.error.message;
+        console.error('Erreur API captée :', customMessage);
       }
-
-      console.error('Erreur API captée :', customMessage);
 
       return throwError(() => new Error(customMessage));
     })

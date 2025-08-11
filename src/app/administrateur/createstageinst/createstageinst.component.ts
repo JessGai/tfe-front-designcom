@@ -43,6 +43,7 @@ export class CreatestageinstComponent {
   readonly stageInstanceForm: FormGroup = this.formBuilder.group({
     prix: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
     dateDebut: ['', Validators.required],
+    dateFin: ['', Validators.required],
     nbrParticipant: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
     nbrInscrit: [{ value: '0', disabled: true }],
     statut: ['true', Validators.required],

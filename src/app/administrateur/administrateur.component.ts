@@ -83,6 +83,7 @@ export class AdministrateurComponent {
   ];
   displayedInstanceColumns = [
     'dateDebut',
+    'dateFin',
     'prix',
     'statut',
     'nbrParticipant',

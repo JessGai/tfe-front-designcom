@@ -1,1 +1,97 @@
-<p>historique works!</p>
+<h1>Historique</h1>
+<ng-container>
+  <mat-card>
+    <mat-card-header>
+      <mat-icon [svgIcon]="'star'" mat-card-avatar></mat-icon>
+      <mat-card-title> Vos transactions: </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-table [dataSource]="dataSource()" matSort>
+        <ng-container matColumnDef="titreStage">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Titre du stage
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.titreStage }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="themeStage">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Theme du stage
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.themeStage }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="dateDebut">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Date de début
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.dateDebut | date : "dd/MM/yyyy" }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="dateFin">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Date de fin
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.dateFin | date : "dd/MM/yyyy" }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="prenomEnfant">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Prénom
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.prenomEnfant }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="nomEnfant">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Nom
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.nomEnfant }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="prixApresReduction">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Prix
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.prixApresReduction }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="tauxReduction">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Taux de réduction
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.tauxReduction }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="datePaiement">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Date du Paiement
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.datePaiement | date : "dd/MM/yyyy hh:mm" }}
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
+<ng-template #aucunHistorique>
+  <mat-card>
+    <mat-card-content>
+      <p>Aucune historique pour le moment.</p>
+    </mat-card-content>
+  </mat-card>
+</ng-template>

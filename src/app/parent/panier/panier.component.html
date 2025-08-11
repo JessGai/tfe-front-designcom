@@ -97,8 +97,14 @@
         </mat-card>
       </div>
       <div style="margin-top: 1rem; text-align: right">
-        <button mat-raised-button color="primary" (click)="payer()">
-          Payer maintenant
+        <button
+          mat-flat-button
+          class=""
+          color="tertiary"
+          disabled="false"
+          (click)="payer()"
+        >
+          <mat-icon svgIcon="euro-coin"></mat-icon>Payer maintenant
         </button>
       </div>
     </mat-card-content>

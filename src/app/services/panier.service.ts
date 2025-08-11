@@ -31,13 +31,29 @@ export class PanierService {
     return this.http.get<AffichagePanier>(url);
   }
 
-  startPayment(montant: number): Observable<{ checkoutUrl: string }> {
+  startPayment(
+    montant: number,
+    idParent: number
+  ): Observable<{ checkoutUrl: string }> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = { montant, idParent };
 
     return this.http.post<{ checkoutUrl: string }>(
       'http://localhost:8081/api/paiement/create-checkout-session',
-      { montant },
+      body,
       { headers }
+    );
+  }
+
+  confirmerPaiement(
+    sessionId: string,
+    idParent: number,
+    montant: number
+  ): Observable<string> {
+    return this.http.post(
+      `http://localhost:8081/api/paiement/confirm?sessionId=${sessionId}&idParent=${idParent}&montant=${montant}`,
+      {},
+      { responseType: 'text' }
     );
   }
 }
